@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>皮克敏 Bloom 彩色名稱產生器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <main class="container">
+    <header class="hero">
+      <h1>皮克敏 Bloom</h1>
+      <p class="subtitle">彩色名稱產生器</p>
+    </header>
+
+    <!-- Single combined card -->
+    <section class="card main-card">
+      <!-- Target selection -->
+      <div class="field-group">
+        <div class="target-toggle">
+          <label class="toggle-option">
+            <input type="radio" name="target-type" value="player" checked>
+            <span>玩家名稱</span>
+          </label>
+          <label class="toggle-option">
+            <input type="radio" name="target-type" value="pikmin">
+            <span>皮克敏名稱</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Text input -->
+      <div class="field-group">
+        <div class="field-label-row">
+          <label class="field-label" for="name-input">名稱文字</label>
+          <span class="input-char-badge" id="input-char-badge">0 / 30</span>
+        </div>
+        <input type="text" id="name-input" class="name-input" placeholder="輸入你的名稱…" autocomplete="off" autocorrect="off"
+          spellcheck="false" aria-label="名稱文字" />
+      </div>
+
+      <!-- Color picker -->
+      <div class="field-group">
+        <label class="field-label">顏色</label>
+
+        <!-- Preset swatches -->
+        <div class="swatches" id="swatches" role="radiogroup" aria-label="顏色選擇">
+          <!-- injected by JS -->
+        </div>
+
+        <!-- Custom color row -->
+        <div class="custom-row">
+          <label class="custom-color-label" for="custom-color-input" id="custom-color-trigger">
+            <span class="custom-swatch" id="custom-swatch"></span>
+            <span class="custom-text">自訂顏色</span>
+            <span class="custom-hex" id="custom-hex">#FF0000</span>
+          </label>
+          <input type="color" id="custom-color-input" value="#ff0000" aria-label="自訂顏色選擇器" class="hidden-color-input" />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="divider" />
+
+      <!-- Result -->
+      <div class="field-group">
+        <div class="result-header">
+          <span class="field-label">產生結果</span>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-box" id="preview-box">
+          <span class="preview-placeholder">預覽將顯示於此…</span>
+        </div>
+
+        <!-- Error message -->
+        <div class="error-msg" id="error-msg" hidden>
+          ⚠️ 選擇顏色時，名稱末尾不可為「A」
+        </div>
+
+        <!-- Output + copy -->
+        <div class="output-row" id="output-row">
+          <input type="text" id="output-input" class="output-input" readonly placeholder="產生的名稱將顯示於此"
+            aria-label="產生的名稱" />
+          <button class="btn-copy" id="copy-btn" aria-label="複製">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            複製
+          </button>
+        </div>
+
+        <div class="toast" id="toast">✓ 已複製！</div>
+      </div>
+    </section>
+
+    <!-- Info -->
+    <section class="card info-card">
+      <h2>使用說明</h2>
+      <ol class="info-list">
+        <li>選擇應用對象（玩家或皮克敏）</li>
+        <li>選擇顏色（玩家名稱先選可確認可用字數）</li>
+        <li>輸入名稱文字</li>
+        <li>點選「複製」按鈕</li>
+        <li>在遊戲對應欄位貼上即可</li>
+      </ol>
+      <div class="info-note">
+        <span>⚠️</span>
+        <span>玩家名稱：含標籤不可超過 30 個字元；選色時末尾不可為「A」。皮克敏名稱無此限制。</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
