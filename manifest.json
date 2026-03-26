@@ -1,0 +1,23 @@
+{
+  "name": "皮克敏彩色名產生器",
+  "short_name": "皮克敏改名",
+  "description": "Pikmin Bloom 彩色名稱產生工具",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#9ad568",
+  "theme_color": "#7bcbee",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
