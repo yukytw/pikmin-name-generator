@@ -1,6 +1,6 @@
 {
   "name": "皮克敏彩色名產生器",
-  "short_name": "皮克敏改名",
+  "short_name": "皮克敏改名工具",
   "description": "Pikmin Bloom 彩色名稱產生工具",
   "start_url": "./",
   "display": "standalone",
