@@ -40,6 +40,8 @@ body {
   color: var(--text-primary);
   min-height: 100dvh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* === Background === */
@@ -606,6 +608,31 @@ body {
   font-weight: 600;
   color: #c99300;
   line-height: 1.5;
+}
+
+/* === Footer === */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 20px 16px 28px;
+  margin-top: auto;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.site-footer a {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+  transition: border-color var(--transition);
+}
+
+.site-footer a:hover {
+  border-color: #ffffff;
 }
 
 /* === Responsive === */
