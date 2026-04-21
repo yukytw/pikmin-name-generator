@@ -93,7 +93,7 @@
 
         <!-- Error message -->
         <div class="error-msg" id="error-msg" hidden>
-          ⚠️ 選擇顏色時，名稱末尾不可為「A」
+          ⚠️ 選擇顏色時，名稱結尾不可為「A」
         </div>
 
         <!-- Output + copy -->
@@ -118,7 +118,7 @@
     <section class="card info-card">
       <h2>使用說明</h2>
       <ol class="info-list">
-        <li>選擇應用對象（玩家或皮克敏）</li>
+        <li>選擇玩家或皮克敏</li>
         <li>選擇顏色（玩家名稱先選可確認可用字數）</li>
         <li>輸入名稱文字</li>
         <li>點選「複製」按鈕</li>
@@ -126,7 +126,7 @@
       </ol>
       <div class="info-note">
         <span>⚠️</span>
-        <span>玩家名稱：含標籤不可超過 30 個字元；選色時末尾不可為「A」。皮克敏名稱無此限制。</span>
+        <span>玩家名稱：含標籤不可超過 30 個字元；選色時結尾不可為「A」。皮克敏名稱無此限制。</span>
       </div>
     </section>
   </main>
@@ -137,7 +137,9 @@
       navigator.serviceWorker.register('./sw.js');
     }
   </script>
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "882b24bebb7f4c7bbf2eb0dd1ecc7fb2"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "882b24bebb7f4c7bbf2eb0dd1ecc7fb2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>
