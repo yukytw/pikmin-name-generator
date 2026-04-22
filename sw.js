@@ -1,5 +1,5 @@
 // Service Worker — Pikmin Name Generator PWA
-const CACHE_NAME = 'pikmin-name-gen-v1';
+const CACHE_NAME = 'pikmin-name-gen-8d512f8';
 
 const PRECACHE_URLS = [
   './',
