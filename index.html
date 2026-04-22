@@ -57,9 +57,9 @@
           spellcheck="false" aria-label="名稱文字" />
       </div>
 
-      <!-- Color picker -->
+      <!-- Color and Style options -->
       <div class="field-group">
-        <label class="field-label">顏色</label>
+        <label class="field-label">顏色與樣式</label>
 
         <!-- Preset swatches -->
         <div class="swatches" id="swatches" role="radiogroup" aria-label="顏色選擇">
@@ -74,6 +74,20 @@
             <span class="custom-hex" id="custom-hex">#FF0000</span>
           </label>
           <input type="color" id="custom-color-input" value="#ff0000" aria-label="自訂顏色選擇器" class="hidden-color-input" />
+        </div>
+
+        <!-- Bold / Italic -->
+        <div class="style-options">
+          <label class="style-checkbox">
+            <input type="checkbox" id="bold-check" />
+            <span class="checkmark"></span>
+            <span>粗體</span>
+          </label>
+          <label class="style-checkbox">
+            <input type="checkbox" id="italic-check" />
+            <span class="checkmark"></span>
+            <span>斜體</span>
+          </label>
         </div>
       </div>
 

@@ -25,6 +25,8 @@ const PRESETS = [
 // State — color is selected first; null = no color tag
 let selectedColor = PRESETS[0].hex;   // starts with red
 let targetType = 'player'; // 'player' or 'pikmin'
+let useBold = false;
+let useItalic = false;
 
 // DOM
 const nameInput = document.getElementById('name-input');
@@ -40,6 +42,8 @@ const outputRow = document.getElementById('output-row');
 const outputInput = document.getElementById('output-input');
 const copyBtn = document.getElementById('copy-btn');
 const toast = document.getElementById('toast');
+const boldCheck = document.getElementById('bold-check');
+const italicCheck = document.getElementById('italic-check');
 const targetRadios = document.querySelectorAll('input[name="target-type"]');
 
 // ---- Color code formatting ----
@@ -60,11 +64,14 @@ function colorCode() {
   return '#' + h;
 }
 
-/** Chars consumed by color tags, 0 if no color selected. */
+/** Chars consumed by all formatting tags. */
 function tagOverhead() {
+  let overhead = 0;
   const code = colorCode();
-  if (!code) return 0;
-  return `<color=${code}>`.length + '</color>'.length;
+  if (code) overhead += `<color=${code}>`.length + '</color>'.length;
+  if (useBold) overhead += '<b></b>'.length;   // 7
+  if (useItalic) overhead += '<i></i>'.length;  // 7
+  return overhead;
 }
 
 function maxTextLen() {
@@ -92,8 +99,10 @@ function validateName(text) {
 function buildOutput() {
   const raw = nameInput.value;
   const max = maxTextLen();
-  const text = raw.slice(0, max);   // enforce limit
+  let text = raw.slice(0, max);   // enforce limit
   if (!text) return '';
+  if (useBold) text = `<b>${text}</b>`;
+  if (useItalic) text = `<i>${text}</i>`;
   const code = colorCode();
   if (!code) return text;
   return `<color=${code}>${text}</color>`;
@@ -131,7 +140,9 @@ function updateOutput() {
   if (!output) {
     previewBox.innerHTML = '<span class="preview-placeholder">預覽將顯示於此…</span>';
   } else {
-    const displayText = escapeHTML(truncatedText);
+    let displayText = escapeHTML(truncatedText);
+    if (useBold) displayText = `<b>${displayText}</b>`;
+    if (useItalic) displayText = `<i>${displayText}</i>`;
     previewBox.innerHTML = selectedColor
       ? `<span style="color:${selectedColor}">${displayText}</span>`
       : `<span>${displayText}</span>`;
@@ -235,6 +246,16 @@ targetRadios.forEach(r => {
 // ---- Name input ----
 
 nameInput.addEventListener('input', updateOutput);
+
+boldCheck.addEventListener('change', () => {
+  useBold = boldCheck.checked;
+  updateOutput();
+});
+
+italicCheck.addEventListener('change', () => {
+  useItalic = italicCheck.checked;
+  updateOutput();
+});
 
 // ---- Copy ----
 
