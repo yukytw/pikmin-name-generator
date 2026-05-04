@@ -88,7 +88,7 @@ function maxTextLen() {
 function validateName(text) {
   if (targetType === 'pikmin') return null;
   if (!selectedColor) return null;
-  if (text.endsWith('A')) {
+  if (text.endsWith('A') || text.endsWith('a')) {
     return '選擇顏色時，玩家名稱不可以「A」結尾';
   }
   return null;
