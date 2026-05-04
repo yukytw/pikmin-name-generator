@@ -684,6 +684,182 @@ body {
   line-height: 1.5;
 }
 
+/* === Friend card === */
+.friend-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.friend-cta {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.friend-cta a {
+  color: var(--green-mid);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(0, 184, 140, 0.3);
+  transition: border-color var(--transition);
+}
+
+.friend-cta a:hover {
+  border-color: var(--green-mid);
+}
+
+.friend-code-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #e6f8f3, #d4f0e8);
+  border: 2px solid rgba(0, 184, 140, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+.friend-code-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 184, 140, 0.2);
+  border-color: var(--green-mid);
+}
+
+.friend-code-btn:active {
+  transform: translateY(0);
+}
+
+.friend-code-number {
+  font-family: 'Courier New', monospace;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--green-dark);
+  letter-spacing: 0.12em;
+}
+
+.friend-code-action {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-mid);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.friend-toast {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green-mid);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.friend-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === QR Modal === */
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fade-in 0.2s ease;
+}
+
+.qr-modal {
+  position: relative;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 32px 28px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  animation: modal-pop 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.qr-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  background: #f0f2f1;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  line-height: 1;
+}
+
+.qr-close:hover {
+  background: #e0e4e2;
+}
+
+.qr-modal h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.qr-img {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  border: 3px solid #f0f2f1;
+}
+
+.qr-code-text {
+  margin-top: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
 /* === Footer === */
 .site-footer {
   position: relative;

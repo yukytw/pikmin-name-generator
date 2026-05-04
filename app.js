@@ -286,3 +286,66 @@ function escapeHTML(str) {
 nameInput.value = '';   // prevent browser-restored value from showing stale warnings
 updateColorUI();
 updateOutput();
+
+// ---- Friend code / QR modal ----
+(function () {
+  const friendBtn = document.getElementById('friend-code-btn');
+  const friendToast = document.getElementById('friend-toast');
+  const qrOverlay = document.getElementById('qr-overlay');
+  const qrClose = document.getElementById('qr-close');
+  const friendAction = document.getElementById('friend-code-action');
+
+  const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // Clipboard fallback for non-secure contexts (HTTP)
+  function copyText(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+
+  function showFriendToast() {
+    friendToast.classList.add('show');
+    setTimeout(() => friendToast.classList.remove('show'), 2200);
+  }
+
+  // On desktop: show QR modal instead of following deep link
+  if (!isMobile) {
+    friendAction.textContent = '(顯示 QR Code)';
+
+    friendBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      qrOverlay.hidden = false;
+      copyText('924233049341');
+      showFriendToast();
+    });
+  }
+  // On mobile: deep link works natively via href, also copy code
+  else {
+    friendBtn.addEventListener('click', () => {
+      copyText('924233049341');
+      showFriendToast();
+    });
+  }
+
+  // Close modal
+  function closeModal() { qrOverlay.hidden = true; }
+  qrClose.addEventListener('click', closeModal);
+  qrOverlay.addEventListener('click', (e) => {
+    if (e.target === qrOverlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !qrOverlay.hidden) closeModal();
+  });
+})();
