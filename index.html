@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css?v=2e2b64d" />
+  <link rel="stylesheet" href="style.css?v=4cf78de" />
 </head>
 
 <body>
@@ -75,6 +75,19 @@
             <span class="custom-hex" id="custom-hex">#FF0000</span>
           </label>
           <input type="color" id="custom-color-input" value="#ff0000" aria-label="自訂顏色選擇器" class="hidden-color-input" />
+        </div>
+
+        <!-- Shorthand color toggle -->
+        <div class="short-color-group" id="short-color-group">
+          <label class="style-checkbox short-color-checkbox">
+            <input type="checkbox" id="short-color-check" />
+            <span class="checkmark"></span>
+            <span>縮短色碼</span>
+          </label>
+          <div class="info-callout">
+            <span class="info-callout-icon">ℹ️</span>
+            <span>啟用後會將色碼縮短為 3 位，可輸入更多文字，但顏色可能會略有不同。請先確認預覽再使用。</span>
+          </div>
         </div>
 
         <!-- Bold / Italic -->
@@ -157,7 +170,7 @@
   </main>
 
 
-  <script src="app.js?v=a4b9fdd"></script>
+  <script src="app.js?v=e22eff2"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');

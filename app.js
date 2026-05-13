@@ -27,6 +27,7 @@ let selectedColor = PRESETS[0].hex;   // starts with red
 let targetType = 'player'; // 'player' or 'pikmin'
 let useBold = false;
 let useItalic = false;
+let useShortColor = false;
 
 // DOM
 const nameInput = document.getElementById('name-input');
@@ -44,14 +45,29 @@ const copyBtn = document.getElementById('copy-btn');
 const toast = document.getElementById('toast');
 const boldCheck = document.getElementById('bold-check');
 const italicCheck = document.getElementById('italic-check');
+const shortColorCheck = document.getElementById('short-color-check');
+const shortColorGroup = document.getElementById('short-color-group');
 const targetRadios = document.querySelectorAll('input[name="target-type"]');
 
 // ---- Color code formatting ----
 
 /**
+ * Given a 6-digit hex string (no #), return the nearest 3-digit hex color.
+ * Each 3-digit hex channel expands as N*17 (e.g. #A → #AA = 170),
+ * so the nearest digit per channel is simply round(value / 17).
+ */
+function nearestShortHex(hex6) {
+  const r = Math.round(parseInt(hex6.slice(0, 2), 16) / 17);
+  const g = Math.round(parseInt(hex6.slice(2, 4), 16) / 17);
+  const b = Math.round(parseInt(hex6.slice(4, 6), 16) / 17);
+  return '#' + r.toString(16) + g.toString(16) + b.toString(16);
+}
+
+/**
  * Returns the color code to use inside the <color=...> tag.
  * - #ff0000 (red)  → 'red'   (special case, shorter than #f00)
  * - 6-digit hex compressible to 3 → '#f00' style
+ * - useShortColor ON → nearest 3-digit hex
  * - otherwise     → '#rrggbb'
  * Returns null when no color is selected.
  */
@@ -61,7 +77,39 @@ function colorCode() {
   if (h === 'ff0000') return 'red';
   const [r1, r2, g1, g2, b1, b2] = h;
   if (h.length === 6 && r1 === r2 && g1 === g2 && b1 === b2) return '#' + r1 + g1 + b1;
+  if (useShortColor && h.length === 6) return nearestShortHex(h);
   return '#' + h;
+}
+
+/**
+ * Returns true when the selected color is a 6-digit hex that can't already
+ * be naturally shortened (i.e., shortening would actually do something).
+ */
+function canShortenColor() {
+  if (!selectedColor) return false;
+  if (targetType === 'pikmin') return false; // no char limit, no need
+  const h = selectedColor.replace('#', '').toLowerCase();
+  if (h === 'ff0000') return false; // already becomes 'red'
+  if (h.length !== 6) return false;
+  const [r1, r2, g1, g2, b1, b2] = h;
+  if (r1 === r2 && g1 === g2 && b1 === b2) return false; // already naturally #RGB
+  return true;
+}
+
+/**
+ * Returns the CSS color string that the current colorCode() would
+ * actually produce in-game. Used for accurate preview rendering.
+ */
+function previewCSSColor() {
+  const code = colorCode();
+  if (!code) return null;
+  if (code === 'red') return '#ff0000';
+  // Expand 3-digit hex (#RGB → #RRGGBB) for CSS
+  if (code.length === 4) {
+    const [, r, g, b] = code;
+    return '#' + r + r + g + g + b + b;
+  }
+  return code;
 }
 
 /** Chars consumed by all formatting tags. */
@@ -136,15 +184,16 @@ function updateOutput() {
   const truncatedText = raw.slice(0, max);
   const validationError = output ? validateName(truncatedText) : null;
 
-  // Preview (always shown)
+  // Preview (always shown) — uses actual output color for accuracy
   if (!output) {
     previewBox.innerHTML = '<span class="preview-placeholder">預覽將顯示於此…</span>';
   } else {
     let displayText = escapeHTML(truncatedText);
     if (useBold) displayText = `<b>${displayText}</b>`;
     if (useItalic) displayText = `<i>${displayText}</i>`;
-    previewBox.innerHTML = selectedColor
-      ? `<span style="color:${selectedColor}">${displayText}</span>`
+    const cssColor = previewCSSColor();
+    previewBox.innerHTML = cssColor
+      ? `<span style="color:${cssColor}">${displayText}</span>`
       : `<span>${displayText}</span>`;
   }
 
@@ -166,7 +215,19 @@ function updateOutput() {
 function selectColor(hexOrNull) {
   selectedColor = hexOrNull;
   updateColorUI();
+  updateShortColorVisibility();
   updateOutput();
+}
+
+/** Show/hide the shorthand toggle — only when shortening would change the color. */
+function updateShortColorVisibility() {
+  const canShorten = canShortenColor();
+  shortColorGroup.hidden = !canShorten;
+  // Uncheck and reset state when toggle is hidden
+  if (!canShorten && useShortColor) {
+    useShortColor = false;
+    shortColorCheck.checked = false;
+  }
 }
 
 function updateColorUI() {
@@ -225,12 +286,14 @@ customInput.addEventListener('input', () => {
   customSwatch.style.background = hex;
   customHexEl.textContent = hex.toUpperCase();
   updateColorUI();
+  updateShortColorVisibility();
   updateOutput();
 });
 
 customInput.addEventListener('change', () => {
   selectedColor = customInput.value;
   updateColorUI();
+  updateShortColorVisibility();
   updateOutput();
 });
 
@@ -239,6 +302,7 @@ customInput.addEventListener('change', () => {
 targetRadios.forEach(r => {
   r.addEventListener('change', (e) => {
     targetType = e.target.value;
+    updateShortColorVisibility();
     updateOutput();
   });
 });
@@ -254,6 +318,11 @@ boldCheck.addEventListener('change', () => {
 
 italicCheck.addEventListener('change', () => {
   useItalic = italicCheck.checked;
+  updateOutput();
+});
+
+shortColorCheck.addEventListener('change', () => {
+  useShortColor = shortColorCheck.checked;
   updateOutput();
 });
 
@@ -285,4 +354,5 @@ function escapeHTML(str) {
 // ---- Init ----
 nameInput.value = '';   // prevent browser-restored value from showing stale warnings
 updateColorUI();
+updateShortColorVisibility();
 updateOutput();

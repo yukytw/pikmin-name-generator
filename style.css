@@ -469,6 +469,46 @@ body {
   opacity: 1;
 }
 
+/* === Shorthand color group === */
+.short-color-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 4px;
+  background: #f4f9ff;
+  border: 1.5px solid #d6e6f5;
+  border-left: 3.5px solid #7db8e0;
+  border-radius: 10px;
+  padding: 4px;
+  overflow: hidden;
+  animation: fade-in 0.25s ease;
+}
+
+.short-color-checkbox {
+  flex: unset !important;
+  background: transparent !important;
+  border: none !important;
+  margin: 0;
+}
+
+/* === Info callout === */
+.info-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 14px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #5a8ab8;
+  line-height: 1.55;
+}
+
+.info-callout-icon {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
 /* === Divider === */
 .divider {
   border: none;
