@@ -778,62 +778,47 @@ body {
   transform: translateY(-2px);
 }
 
-.friend-code-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #e6f8f3, #d4f0e8);
-  border: 2px solid rgba(0, 184, 140, 0.2);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-  -webkit-tap-highlight-color: transparent;
-  text-decoration: none;
+.friend-support {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: -4px;
 }
 
-.friend-code-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 184, 140, 0.2);
+.friend-link {
+  color: var(--green-mid);
+  text-decoration: none;
+  border-bottom: 2.5px solid rgba(0, 184, 140, 0.3);
+  margin: 0 4px;
+  transition: border-color var(--transition);
+}
+
+.friend-link:hover {
   border-color: var(--green-mid);
 }
 
-.friend-code-btn:active {
-  transform: translateY(0);
-}
-
-.friend-code-number {
-  font-family: 'Courier New', monospace;
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--green-dark);
-  letter-spacing: 0.12em;
-}
-
-.friend-code-action {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--green-mid);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
 .friend-toast {
+  display: none;
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--green-mid);
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
 }
 
 .friend-toast.show {
-  opacity: 1;
-  transform: translateY(0);
+  display: block;
+  animation: toast-fade-up 0.2s ease forwards;
+}
+
+@keyframes toast-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* === QR Modal === */

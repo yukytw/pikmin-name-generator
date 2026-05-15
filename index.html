@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css?v=4cf78de" />
+  <link rel="stylesheet" href="style.css?v=07d6444" />
 </head>
 
 <body>
@@ -159,18 +159,30 @@
     </section>
 
     <section class="card friend-card">
-      <p class="friend-cta">本工具由 <a href="https://threads.com/yuuki.twjp" target="_blank"
-          rel="noopener noreferrer">Yuki</a> 製作
+      <p class="friend-cta">
+        本工具由 Yuki 製作
         <span class="friend-social">
           <a href="https://instagram.com/yuuki.twjp" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://threads.com/yuuki.twjp" target="_blank" rel="noopener noreferrer" title="Threads"><i class="fa-brands fa-threads"></i></a>
         </span>
       </p>
+      <p class="friend-support">歡迎<a href="https://pikminbloom.onelink.me/pWSt?pid=friend_code&deep_link_value=pikminbloom%3A%2F%2F%2FADD_FRIEND%3FFRIEND_CODE%3D924233049341%26REFERRAL_INVITE_CODE%3DXCVKTBYKU" id="friend-code-btn" class="friend-link">加我好友</a>送禮包支持</p>
+      <div class="friend-toast" id="friend-toast">✓ 已複製好友代碼！</div>
     </section>
   </main>
 
+  <!-- QR Modal -->
+  <div class="qr-overlay" id="qr-overlay" hidden>
+    <div class="qr-modal">
+      <button class="qr-close" id="qr-close" aria-label="關閉">&times;</button>
+      <h3>掃描 QR Code 加好友</h3>
+      <img class="qr-img" src="friend-qr.svg" alt="Pikmin Bloom Friend QR Code" />
+      <p class="qr-code-text">好友代碼：9242 3304 9341</p>
+    </div>
+  </div>
 
-  <script src="app.js?v=e22eff2"></script>
+
+  <script src="app.js?v=fdd0a53"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');

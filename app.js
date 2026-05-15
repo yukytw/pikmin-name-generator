@@ -351,6 +351,64 @@ function escapeHTML(str) {
     .replace(/>/g, '&gt;');
 }
 
+// ---- Friend Code & Support ----
+
+(function () {
+  const friendBtn = document.getElementById('friend-code-btn');
+  const friendToast = document.getElementById('friend-toast');
+  const qrOverlay = document.getElementById('qr-overlay');
+  const qrClose = document.getElementById('qr-close');
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        throw new Error('Clipboard API unavailable');
+      }
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  }
+
+  function showFriendToast() {
+    friendToast.classList.add('show');
+    setTimeout(() => friendToast.classList.remove('show'), 2200);
+  }
+
+  if (friendBtn) {
+    friendBtn.addEventListener('click', async (e) => {
+      // On desktop: show QR modal instead of following link
+      if (!isMobile) {
+        e.preventDefault();
+        qrOverlay.hidden = false;
+      }
+      // Both mobile and desktop: copy friend code
+      await copyText('924233049341');
+      showFriendToast();
+    });
+  }
+
+  // Close modal logic
+  if (qrOverlay) {
+    const closeModal = () => { qrOverlay.hidden = true; };
+    qrClose.addEventListener('click', closeModal);
+    qrOverlay.addEventListener('click', (e) => {
+      if (e.target === qrOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !qrOverlay.hidden) closeModal();
+    });
+  }
+})();
+
 // ---- Init ----
 nameInput.value = '';   // prevent browser-restored value from showing stale warnings
 updateColorUI();
